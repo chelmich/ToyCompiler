@@ -14,6 +14,7 @@ target_sources(${PROJECT_NAME}
     PRIVATE
         main.cpp
         finite_automata/nfa.cpp
+        finite_automata/print_nfa.cpp
         regex/expr.cpp
         regex/print_expr.cpp
 )
