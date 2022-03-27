@@ -16,6 +16,13 @@ public:
 
     unsigned num_states() const { return m_states.size(); }
 
+    /// Get the set of symbols a given state can transition on
+    std::unordered_set<T> transition_symbols(unsigned state) const;
+    /// Get the set of transition destinations for a given state and symbol
+    std::unordered_set<unsigned> transitions_on(unsigned state, T symbol) const;
+    /// Get the set of epsilon transition destinations for a given state
+    std::unordered_set<unsigned> epsilon_transitions(unsigned state) const;
+
     /// @return Index of the newly added state
     unsigned add_state();
 

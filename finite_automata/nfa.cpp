@@ -4,8 +4,31 @@
 
 template<typename T>
 void NFA<T>::set_initial_state(unsigned state) {
-    assert(state < m_states.size());
+    assert(state < m_states.size()); // state index must be valid
     m_initial_state = state;
+}
+
+template<typename T>
+std::unordered_set<T> NFA<T>::transition_symbols(unsigned state) const {
+    assert(state < m_states.size()); // state index must be valid
+    std::unordered_set<T> symbols;
+    for (auto const& pair : m_states[state].transitions) {
+        symbols.insert(pair.first);
+    }
+    return symbols;
+}
+
+template<typename T>
+std::unordered_set<unsigned> NFA<T>::transitions_on(unsigned state, T symbol) const {
+    assert(state < m_states.size()); // state index must be valid
+    assert(m_states[state].transitions.contains(symbol));
+    return m_states[state].transitions.at(symbol);
+}
+
+template<typename T>
+std::unordered_set<unsigned> NFA<T>::epsilon_transitions(unsigned state) const {
+    assert(state < m_states.size()); // state index must be valid
+    return m_states[state].epsilon_transitions;
 }
 
 template<typename T>
