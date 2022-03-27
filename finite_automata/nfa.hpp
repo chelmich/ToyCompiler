@@ -5,7 +5,8 @@
 #include <unordered_set>
 #include <vector>
 
-/// Non-deterministic finite automata
+/// @brief Non-deterministic finite automata
+/// @tparam T Type of symbol to label transitions with
 template<typename T>
 class NFA {
 public:
@@ -18,7 +19,9 @@ public:
     /// @return Index of the newly added state
     unsigned add_state();
 
+    /// Add a new transition on a given symbol
     void add_transition(unsigned from, unsigned to, T symbol);
+    /// Add a new epsilon transition
     void add_transition_epsilon(unsigned from, unsigned to);
 
 private:
