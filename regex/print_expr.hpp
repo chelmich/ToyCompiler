@@ -8,4 +8,4 @@ class Expr;
 
 /// @brief Recursively print a regular expression for debug
 /// @related RE::Expr
-void print_regex(std::ostream& os, RE::Expr const* expr);
+std::ostream& operator<<(std::ostream& os, RE::Expr const* expr);

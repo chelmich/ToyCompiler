@@ -4,7 +4,7 @@
 
 #include <ostream>
 
-void print_regex(std::ostream& os, RE::Expr const* expr) {
+std::ostream& operator<<(std::ostream& os, RE::Expr const* expr) {
     using Type = RE::Expr::Type;
 
     switch (expr->type()) {
@@ -15,23 +15,15 @@ void print_regex(std::ostream& os, RE::Expr const* expr) {
         os << '\'' << expr->literal() << '\'';
         break;
     case Type::Star:
-        os << '(';
-        print_regex(os, expr->sub());
-        os << " star)";
+        os << '(' << expr->sub() << " star)";
         break;
     case Type::And:
-        os << '(';
-        print_regex(os, expr->left());
-        os << " and ";
-        print_regex(os, expr->right());
-        os << ')';
+        os << '(' << expr->left() << " and " << expr->right() << ')';
         break;
     case Type::Or:
-        os << '(';
-        print_regex(os, expr->left());
-        os << " or ";
-        print_regex(os, expr->right());
-        os << ')';
+        os << '(' << expr->left() << " or " << expr->right() << ')';
         break;
     }
+
+    return os;
 }
