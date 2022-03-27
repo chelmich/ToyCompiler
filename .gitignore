@@ -1,5 +1,8 @@
 # CMake build directory
 /build/
 
+# Doxygen output
+/doc/
+
 # Visual Studio Code
 /.vscode/
