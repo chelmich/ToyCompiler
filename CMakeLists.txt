@@ -13,6 +13,7 @@ set_target_properties(${PROJECT_NAME}
 target_sources(${PROJECT_NAME}
     PRIVATE
         main.cpp
+        finite_automata/nfa.cpp
         regex/expr.cpp
         regex/print_expr.cpp
 )
