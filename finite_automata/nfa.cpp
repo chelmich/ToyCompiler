@@ -32,9 +32,11 @@ std::unordered_set<unsigned> NFA<T>::epsilon_transitions(unsigned state) const {
 }
 
 template<typename T>
-unsigned NFA<T>::add_state() {
-    m_states.push_back(State());
-    return m_states.size() - 1;
+unsigned NFA<T>::add_state(bool accepting) {
+    const unsigned state = m_states.size();
+    m_states.push_back(State(accepting));
+    if (accepting) m_accepting_states.insert(state);
+    return state;
 }
 
 template<typename T>

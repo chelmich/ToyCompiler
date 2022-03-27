@@ -10,8 +10,24 @@ void print_nfa(std::ostream& os, NFA<T> const& nfa) {
         os << "No initial state!\n";
     }
 
+    const std::unordered_set<unsigned> accepting_states = nfa.accepting_states();
+    if (accepting_states.empty()) {
+        os << "No accepting states!\n";
+    } else if (accepting_states.size() == 1) {
+        os << "Accepting state: s" << *accepting_states.begin() << '\n';
+    } else {
+        os << "Accepting states:";
+        for (auto it = accepting_states.begin(); it != accepting_states.end(); it++) {
+            os << " s" << *it;
+            if (std::next(it) != accepting_states.end()) {
+                os << ',';
+            }
+        }
+        os << '\n';
+    }
+
     os << "Transitions:\n";
-    unsigned num_transitions;
+    unsigned num_transitions = 0;
     for (unsigned i = 0; i < nfa.num_states(); i++) {
         for (T symbol : nfa.transition_symbols(i)) {
             for (unsigned dest : nfa.transitions_on(i, symbol)) {
@@ -25,7 +41,7 @@ void print_nfa(std::ostream& os, NFA<T> const& nfa) {
         }
     }
 
-    os << nfa.num_states() << " states, ";
+    os << nfa.num_states() << " states (" << accepting_states.size() << " accepting), ";
     os << num_transitions << " transitions\n";
 }
 

@@ -16,6 +16,8 @@ public:
 
     unsigned num_states() const { return m_states.size(); }
 
+    std::unordered_set<unsigned> accepting_states() const { return m_accepting_states; }
+
     /// Get the set of symbols a given state can transition on
     std::unordered_set<T> transition_symbols(unsigned state) const;
     /// Get the set of transition destinations for a given state and symbol
@@ -24,7 +26,7 @@ public:
     std::unordered_set<unsigned> epsilon_transitions(unsigned state) const;
 
     /// @return Index of the newly added state
-    unsigned add_state();
+    unsigned add_state(bool accepting = false);
 
     /// Add a new transition on a given symbol
     void add_transition(unsigned from, unsigned to, T symbol);
@@ -33,10 +35,15 @@ public:
 
 private:
     struct State {
+        bool accepting;
         std::unordered_map<T, std::unordered_set<unsigned>> transitions;
         std::unordered_set<unsigned> epsilon_transitions;
+
+        explicit State(bool accepting)
+            : accepting(accepting) {}
     };
 
     std::vector<State> m_states;
+    std::unordered_set<unsigned> m_accepting_states;
     std::optional<unsigned> m_initial_state;
 };

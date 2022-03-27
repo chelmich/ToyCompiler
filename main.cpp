@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 
     NFA<char> nfa;
     nfa.add_state();
-    nfa.add_state();
+    nfa.add_state(true);
     nfa.set_initial_state(0);
     nfa.add_transition(0, 1, 'a');
     nfa.add_transition_epsilon(0, 1);
