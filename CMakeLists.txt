@@ -14,6 +14,7 @@ target_sources(${PROJECT_NAME}
     PRIVATE
         main.cpp
         regex/expr.cpp
+        regex/print_expr.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
