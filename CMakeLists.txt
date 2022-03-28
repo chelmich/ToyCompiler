@@ -17,6 +17,7 @@ target_sources(${PROJECT_NAME}
         finite_automata/print_nfa.cpp
         regex/expr.cpp
         regex/print_expr.cpp
+        regex_to_nfa.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

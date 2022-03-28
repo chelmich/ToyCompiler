@@ -4,21 +4,23 @@
 #include <finite_automata/nfa.hpp>
 #include <finite_automata/print_nfa.hpp>
 
+#include <regex_to_nfa.hpp>
+
 #include <iostream>
 
 int main(int argc, char* argv[]) {
-    RE::Expr *r = RE::Expr::And(
-        RE::Expr::Literal('a'),
-        RE::Expr::Star(RE::Expr::Literal('b')));
+    RE::Expr* regex = RE::Expr::And(
+        RE::Expr::Star(
+            RE::Expr::Or(
+                RE::Expr::Literal('a'),
+                RE::Expr::Literal('b'))),
+        RE::Expr::And(
+            RE::Expr::Literal('a'),
+            RE::Expr::Literal('c')));
 
-    std::cout << "Regex: " << r << '\n';
+    std::cout << "Regex: " << regex << '\n';
 
-    NFA<char> nfa;
-    nfa.add_state();
-    nfa.add_state(true);
-    nfa.set_initial_state(0);
-    nfa.add_transition(0, 1, 'a');
-    nfa.add_transition_epsilon(0, 1);
+    NFA<char> nfa = regex_to_nfa(regex);
 
     std::cout << "NFA:\n";
     print_nfa(std::cout, nfa);
