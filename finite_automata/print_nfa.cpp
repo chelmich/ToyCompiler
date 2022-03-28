@@ -45,5 +45,55 @@ void print_nfa(std::ostream& os, NFA<T> const& nfa) {
     os << num_transitions << " transitions\n";
 }
 
+template<typename T>
+void print_nfa_graphviz(std::ostream& os, NFA<T> const& nfa) {
+    os << "digraph NFA {\n";
+    os << "rankdir = LR;\n";
+    os << "edge [arrowhead=empty];\n";
+
+    // Start state arrow
+    if (nfa.has_initial_state()) {
+        os << "start -> s" << nfa.initial_state().value() << " [style=bold];\n";
+    }
+
+    // Epsilon transitions
+    for (unsigned i = 0; i < nfa.num_states(); i++) {
+        for (unsigned dest : nfa.epsilon_transitions(i)) {
+            os << "s" << i << " -> s" << dest;
+            os << " [style=dashed];\n";
+        }
+    }
+
+    // Symbol transitions
+    for (unsigned i = 0; i < nfa.num_states(); i++) {
+        for (T symbol : nfa.transition_symbols(i)) {
+            for (unsigned dest : nfa.transitions_on(i, symbol)) {
+                os << "s" << i << " -> s" << dest;
+                os << " [label=\"" << symbol << "\" weight=50];\n";
+            }
+        }
+    }
+
+    // Hidden start node
+    if (nfa.has_initial_state()) {
+        os << "start [shape=none label=\"\"]\n";
+    }
+
+    // State nodes
+    std::unordered_set<unsigned> accepting_states = nfa.accepting_states();
+    for (size_t i = 0; i < nfa.num_states(); i++) {
+        os << 's' << i << " [shape=";
+        if (accepting_states.contains(i)) {
+            os << "doublecircle";
+        } else {
+            os << "circle";
+        }
+        os << "];\n";
+    }
+
+    os << "}\n";
+}
+
 // Explicit template instantiation
 template void print_nfa<char>(std::ostream&, NFA<char> const&);
+template void print_nfa_graphviz<char>(std::ostream&, NFA<char> const&);

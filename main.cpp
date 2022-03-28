@@ -7,6 +7,7 @@
 #include <regex_to_nfa.hpp>
 
 #include <iostream>
+#include <fstream>
 
 int main(int argc, char* argv[]) {
     RE::Expr* regex = RE::Expr::And(
@@ -24,6 +25,10 @@ int main(int argc, char* argv[]) {
 
     std::cout << "NFA:\n";
     print_nfa(std::cout, nfa);
+
+    std::ofstream graph_file("nfa.gv");
+    print_nfa_graphviz(graph_file, nfa);
+    graph_file.close();
 
     return 0;
 }
