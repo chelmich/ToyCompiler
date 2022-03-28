@@ -33,6 +33,9 @@ public:
     /// Add a new epsilon transition
     void add_transition_epsilon(unsigned from, unsigned to);
 
+    /// Compute the set of states reachable from a given set by epsilon transitions
+    std::unordered_set<unsigned> epsilon_closure(std::unordered_set<unsigned> states) const;
+
 private:
     struct State {
         bool accepting;

@@ -51,5 +51,27 @@ void NFA<T>::add_transition_epsilon(unsigned from, unsigned to) {
     m_states[from].epsilon_transitions.insert(to);
 }
 
+template<typename T>
+std::unordered_set<unsigned> NFA<T>::epsilon_closure(std::unordered_set<unsigned> states) const {
+    // Begin with all states unmarked
+    std::vector<unsigned> work_list = {states.begin(), states.end()};
+
+    while (!work_list.empty()) {
+        // Pop a state from the work list
+        unsigned state = work_list.back();
+        work_list.pop_back();
+
+        // Traverse epsilon transitions, add new states to work list
+        for (unsigned dest : epsilon_transitions(state)) {
+            if (!states.contains(dest)) {
+                states.insert(dest);
+                work_list.push_back(dest);
+            }
+        }
+    }
+
+    return states;
+}
+
 // Explicit template instantiation
 template class NFA<char>;

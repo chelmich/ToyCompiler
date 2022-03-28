@@ -33,6 +33,13 @@ int main(int argc, char* argv[]) {
     print_nfa_graphviz(nfa_graph_file, nfa);
     nfa_graph_file.close();
 
+    auto e_closure = nfa.epsilon_closure({0});
+    std::cout << "epsilon closure of s0 =";
+    for (unsigned state : e_closure) {
+        std::cout << " s" << state;
+    }
+    std::cout << "\n\n";
+
     DFA<char> dfa;
     dfa.add_state();
     dfa.set_initial_state(0);
