@@ -3,6 +3,7 @@
 
 #include <finite_automata/dfa.hpp>
 #include <finite_automata/nfa.hpp>
+#include <finite_automata/nfa_to_dfa.hpp>
 #include <finite_automata/print_dfa.hpp>
 #include <finite_automata/print_nfa.hpp>
 
@@ -40,14 +41,7 @@ int main(int argc, char* argv[]) {
     }
     std::cout << "\n\n";
 
-    DFA<char> dfa;
-    dfa.add_state();
-    dfa.set_initial_state(0);
-    dfa.add_state();
-    dfa.add_state(true);
-    dfa.add_transition(0, 1, 'a');
-    dfa.add_transition(0, 1, 'b');
-    dfa.add_transition(1, 2, 'c');
+    DFA<char> dfa = nfa_to_dfa(nfa);
 
     std::cout << "DFA:\n";
     print_dfa(std::cout, dfa);

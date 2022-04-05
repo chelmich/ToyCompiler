@@ -15,6 +15,7 @@ target_sources(${PROJECT_NAME}
         main.cpp
         finite_automata/dfa.cpp
         finite_automata/nfa.cpp
+        finite_automata/nfa_to_dfa.cpp
         finite_automata/print_dfa.cpp
         finite_automata/print_nfa.cpp
         regex/expr.cpp
