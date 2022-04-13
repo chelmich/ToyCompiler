@@ -80,6 +80,7 @@ DFA<T> nfa_to_dfa(NFA<T> const& nfa) {
     }
 
     // Dump conversion table for debug
+    /*
     for (auto [dfa_state, nfa_states] : conversion_table) {
         std::cout << "s" << dfa_state << "' ->";
         for (unsigned state : nfa_states) {
@@ -88,6 +89,7 @@ DFA<T> nfa_to_dfa(NFA<T> const& nfa) {
         std::cout << '\n';
     }
     std::cout << '\n';
+    */
 
     return dfa;
 }

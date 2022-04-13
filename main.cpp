@@ -1,3 +1,5 @@
+#include <regex.hpp>
+
 #include <regex/expr.hpp>
 #include <regex/print_expr.hpp>
 
@@ -13,18 +15,18 @@
 #include <fstream>
 
 int main(int argc, char* argv[]) {
-    RE::Expr* regex = RE::Expr::And(
+    Regex regex = Regex(RE::Expr::And(
         RE::Expr::Star(
             RE::Expr::Or(
                 RE::Expr::Literal('a'),
                 RE::Expr::Literal('b'))),
         RE::Expr::And(
             RE::Expr::Literal('a'),
-            RE::Expr::Literal('c')));
+            RE::Expr::Literal('c'))));
 
-    std::cout << "Regex: " << regex << "\n\n";
+    std::cout << "Regex: " << regex.expr() << "\n\n";
 
-    NFA<char> nfa = regex_to_nfa(regex);
+    NFA<char> nfa = regex_to_nfa(regex.expr());
 
     std::cout << "NFA:\n";
     print_nfa(std::cout, nfa);
