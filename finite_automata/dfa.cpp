@@ -9,7 +9,7 @@ void DFA<T>::set_initial_state(unsigned state) {
 }
 
 template<typename T>
-std::unordered_map<T, unsigned> DFA<T>::transitions(unsigned state) const {
+std::unordered_map<T, unsigned> const& DFA<T>::transitions(unsigned state) const {
     assert(state < m_states.size()); // state index must be valid
     return m_states[state].transitions;
 }

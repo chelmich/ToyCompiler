@@ -19,7 +19,7 @@ public:
     std::unordered_set<unsigned> const& accepting_states() const { return m_accepting_states; }
 
     /// Get the map of transitions for a given state
-    std::unordered_map<T, unsigned> transitions(unsigned state) const;
+    std::unordered_map<T, unsigned> const& transitions(unsigned state) const;
 
     /// @return Index of the newly added state
     unsigned add_state(bool accepting = false);

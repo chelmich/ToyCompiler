@@ -44,7 +44,7 @@ DFA<T> nfa_to_dfa(NFA<T> const& nfa) {
         std::unordered_map<T, std::unordered_set<unsigned>> transition_map;
         for (unsigned nfa_state : current_nfa_states) {
             for (T symbol : nfa.transition_symbols(nfa_state)) {
-                std::unordered_set<unsigned> destinations = nfa.transitions_on(nfa_state, symbol);
+                std::unordered_set<unsigned> const& destinations = nfa.transitions_on(nfa_state, symbol);
                 transition_map[symbol].insert(destinations.begin(), destinations.end());
             }
         }
