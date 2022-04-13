@@ -16,7 +16,7 @@ public:
 
     unsigned num_states() const { return m_states.size(); }
 
-    std::unordered_set<unsigned> accepting_states() const { return m_accepting_states; }
+    std::unordered_set<unsigned> const& accepting_states() const { return m_accepting_states; }
 
     /// Get the map of transitions for a given state
     std::unordered_map<T, unsigned> transitions(unsigned state) const;

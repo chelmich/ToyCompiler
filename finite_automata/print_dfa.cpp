@@ -10,7 +10,7 @@ void print_dfa(std::ostream& os, DFA<T> const& dfa) {
         os << "No initial state!\n";
     }
 
-    const std::unordered_set<unsigned> accepting_states = dfa.accepting_states();
+    std::unordered_set<unsigned> const& accepting_states = dfa.accepting_states();
     if (accepting_states.empty()) {
         os << "No accepting states!\n";
     } else if (accepting_states.size() == 1) {
@@ -64,7 +64,7 @@ void print_dfa_graphviz(std::ostream& os, DFA<T> const& dfa) {
     }
 
     // State nodes
-    std::unordered_set<unsigned> accepting_states = dfa.accepting_states();
+    std::unordered_set<unsigned> const& accepting_states = dfa.accepting_states();
     for (size_t i = 0; i < dfa.num_states(); i++) {
         os << 's' << i << " [shape=";
         if (accepting_states.contains(i)) {

@@ -8,10 +8,8 @@
 
 template<typename T>
 bool set_accepts(NFA<T> const& nfa, std::unordered_set<unsigned> states) {
-    std::unordered_set<unsigned> accepting_states = nfa.accepting_states();
-
     for (unsigned state : states) {
-        if (accepting_states.contains(state)) {
+        if (nfa.accepting_states().contains(state)) {
             return true;
         }
     }
