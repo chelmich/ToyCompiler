@@ -1,10 +1,10 @@
-#include <regex.hpp>
+#include <regex/regex.hpp>
 
 #include <finite_automata/nfa.hpp>
 #include <finite_automata/nfa_to_dfa.hpp>
 
 #include <regex/expr.hpp>
-#include <regex_to_nfa.hpp>
+#include <regex/regex_to_nfa.hpp>
 
 #include <cassert>
 

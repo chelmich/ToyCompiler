@@ -18,10 +18,10 @@ target_sources(${PROJECT_NAME}
         finite_automata/nfa_to_dfa.cpp
         finite_automata/print_dfa.cpp
         finite_automata/print_nfa.cpp
-        regex.cpp
         regex/expr.cpp
         regex/print_expr.cpp
-        regex_to_nfa.cpp
+        regex/regex.cpp
+        regex/regex_to_nfa.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

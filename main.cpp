@@ -1,15 +1,6 @@
-#include <regex.hpp>
-
+#include <regex/regex.hpp>
 #include <regex/expr.hpp>
 #include <regex/print_expr.hpp>
-
-#include <finite_automata/dfa.hpp>
-#include <finite_automata/nfa.hpp>
-#include <finite_automata/nfa_to_dfa.hpp>
-#include <finite_automata/print_dfa.hpp>
-#include <finite_automata/print_nfa.hpp>
-
-#include <regex_to_nfa.hpp>
 
 #include <fstream>
 #include <iostream>

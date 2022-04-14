@@ -1,4 +1,4 @@
-#include <regex_to_nfa.hpp>
+#include <regex/regex_to_nfa.hpp>
 
 #include <finite_automata/nfa.hpp>
 
