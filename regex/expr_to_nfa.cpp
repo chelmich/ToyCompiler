@@ -1,4 +1,4 @@
-#include <regex/regex_to_nfa.hpp>
+#include <regex/expr_to_nfa.hpp>
 
 #include <finite_automata/nfa.hpp>
 
@@ -7,7 +7,7 @@
 #include <cassert>
 #include <vector>
 
-NFA<char> regex_to_nfa(RE::Expr const* regex) {
+NFA<char> expr_to_nfa(RE::Expr const* regex) {
     assert(regex != nullptr);
 
     NFA<char> nfa;

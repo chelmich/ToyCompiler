@@ -4,7 +4,7 @@
 #include <finite_automata/nfa_to_dfa.hpp>
 
 #include <regex/expr.hpp>
-#include <regex/regex_to_nfa.hpp>
+#include <regex/expr_to_nfa.hpp>
 
 #include <cassert>
 
@@ -13,7 +13,7 @@ Regex::Regex(RE::Expr* expression)
 {
     assert(expression != nullptr);
 
-    NFA<char> nfa = regex_to_nfa(m_expr);
+    NFA<char> nfa = expr_to_nfa(m_expr);
     m_dfa = nfa_to_dfa(nfa);
 
     assert(m_dfa.has_initial_state());
