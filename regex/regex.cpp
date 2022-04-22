@@ -23,6 +23,21 @@ Regex::~Regex() {
     delete m_expr;
 }
 
+Regex::Regex(Regex&& other)
+    : m_expr(std::exchange(other.m_expr, nullptr))
+    , m_dfa(std::exchange(other.m_dfa, {})) {}
+
+Regex& Regex::operator=(Regex&& other) {
+    if (this != &other) {
+        delete m_expr;
+
+        m_expr = std::exchange(other.m_expr, nullptr);
+        m_dfa = std::exchange(other.m_dfa, {});
+    }
+
+    return *this;
+}
+
 bool Regex::match(std::string_view input) const {
     std::optional<size_t> result = match_partial(input);
 

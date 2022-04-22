@@ -20,6 +20,10 @@ public:
     Regex(Regex const&) = delete;
     Regex& operator=(Regex const&) = delete;
 
+    // Move constructor and move assignment
+    Regex(Regex&& other);
+    Regex& operator=(Regex&& other);
+
     RE::Expr const* expr() const { return m_expr; }
     DFA<char> const& dfa() const { return m_dfa; }
 
