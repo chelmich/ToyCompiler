@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 namespace RE {
 
 /// Tree representation of a regular expression
@@ -14,6 +16,9 @@ public:
         // Binary expressions
         And,
         Or,
+        // Vector expressions
+        AndMany,
+        OrMany,
     };
 
     static Expr* Epsilon();
@@ -22,6 +27,8 @@ public:
     static Expr* Star(Expr* sub);
     static Expr* And(Expr* left, Expr* right);
     static Expr* Or(Expr* left, Expr* right);
+    static Expr* AndMany(std::vector<Expr*> exprs);
+    static Expr* OrMany(std::vector<Expr*> exprs);
 
     // Delete copy constructor and copy assignment
     Expr(Expr const&) = delete;
@@ -38,6 +45,7 @@ public:
     Expr* sub() const;
     Expr* left() const;
     Expr* right() const;
+    std::vector<Expr*> const& sub_vec() const;
 
 private:
     /// Private constructor for an epsilon expression
@@ -66,6 +74,11 @@ private:
         , m_left(left)
         , m_right(right) {}
 
+    /// Private constructor for a vector expression
+    Expr(Type type, std::vector<Expr*> sub_vec)
+        : m_type(type)
+        , m_sub_vec(sub_vec) {}
+
     Type m_type;
 
     union {
@@ -86,6 +99,9 @@ private:
             Expr* m_left;
             Expr* m_right;
         };
+
+        // Valid for Type::AndMany, Type::OrMany
+        std::vector<Expr*> m_sub_vec;
     };
 };
 

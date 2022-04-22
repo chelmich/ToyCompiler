@@ -26,6 +26,26 @@ std::ostream& operator<<(std::ostream& os, RE::Expr const* expr) {
     case Type::Or:
         os << '(' << expr->left() << " or " << expr->right() << ')';
         break;
+    case Type::AndMany:
+        os << '(';
+        for (int i = 0; i < expr->sub_vec().size(); i++) {
+            if (i != 0) {
+                os << " and ";
+            }
+            os << expr->sub_vec()[i];
+        }
+        os << ')';
+        break;
+    case Type::OrMany:
+        os << '(';
+        for (int i = 0; i < expr->sub_vec().size(); i++) {
+            if (i != 0) {
+                os << " or ";
+            }
+            os << expr->sub_vec()[i];
+        }
+        os << ')';
+        break;
     }
 
     return os;

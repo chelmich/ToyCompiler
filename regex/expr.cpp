@@ -32,6 +32,22 @@ Expr* Expr::Or(Expr* left, Expr* right) {
     return new Expr(Type::Or, left, right);
 }
 
+Expr* Expr::AndMany(std::vector<Expr*> exprs) {
+    assert(exprs.size() >= 2);
+    for (Expr* expr : exprs) {
+        assert(expr != nullptr);
+    }
+    return new Expr(Type::AndMany, exprs);
+}
+
+Expr* Expr::OrMany(std::vector<Expr*> exprs) {
+    assert(exprs.size() >= 2);
+    for (Expr* expr : exprs) {
+        assert(expr != nullptr);
+    }
+    return new Expr(Type::OrMany, exprs);
+}
+
 Expr::~Expr() {
     switch (m_type) {
     case Type::Epsilon:
@@ -48,6 +64,14 @@ Expr::~Expr() {
         // Free binary expression
         delete m_left;
         delete m_right;
+        break;
+    case Type::AndMany:
+    case Type::OrMany:
+        // Free vector expression
+        for (Expr* expr : m_sub_vec) {
+            delete expr;
+        }
+        m_sub_vec.~vector();
         break;
     }
 }
@@ -80,6 +104,11 @@ Expr* Expr::left() const {
 Expr* Expr::right() const {
     assert(m_type == Type::And || m_type == Type::Or);
     return m_right;
+}
+
+std::vector<Expr*> const& Expr::sub_vec() const {
+    assert(m_type == Type::AndMany || m_type == Type::OrMany);
+    return m_sub_vec;
 }
 
 }; // namespace RE

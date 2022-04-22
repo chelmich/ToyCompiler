@@ -59,6 +59,25 @@ NFA<char> expr_to_nfa(RE::Expr const* regex) {
             stack.push_back({frag.from, frag.to, frag.expr->left()});
             stack.push_back({frag.from, frag.to, frag.expr->right()});
             break;
+        case Type::AndMany: {
+            std::vector<RE::Expr*> const& vec = frag.expr->sub_vec();
+            unsigned from_last = frag.from;
+            for (size_t i = 0; i < vec.size(); i++) {
+                if (i != vec.size() - 1) {
+                    unsigned new_state = nfa.add_state();
+                    stack.push_back({from_last, new_state, vec[i]});
+                    from_last = new_state;
+                } else {
+                    stack.push_back({from_last, frag.to, vec[i]});
+                }
+            }
+            break;
+        }
+        case Type::OrMany:
+            for (RE::Expr* expr : frag.expr->sub_vec()) {
+                stack.push_back({frag.from, frag.to, expr});
+            }
+            break;
         }
     }
 
