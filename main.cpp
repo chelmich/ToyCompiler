@@ -1,3 +1,5 @@
+#include <grammar/terminal.hpp>
+
 #include <regex/regex.hpp>
 #include <regex/expr.hpp>
 #include <regex/print_expr.hpp>
@@ -23,6 +25,30 @@ int main(int argc, char* argv[]) {
         } else {
             std::cout << "false\n";
         }
+    }
+    std::cout << '\n';
+
+    std::vector<GR::Terminal> terminals;
+    terminals.push_back(GR::Terminal("Equals", Regex(RE::Expr::Literal('='))));
+    terminals.push_back(GR::Terminal("Number", Regex(
+        RE::Expr::And(
+            RE::Expr::LiteralRange('1', '9'),
+            RE::Expr::Star(
+                RE::Expr::LiteralRange('0', '9'))))));
+    terminals.push_back(GR::Terminal("Identifier", Regex(
+        RE::Expr::And(
+            RE::Expr::Or(
+                RE::Expr::LiteralRange('a', 'z'),
+                RE::Expr::LiteralRange('A', 'Z')),
+            RE::Expr::Star(
+                RE::Expr::Or(
+                    RE::Expr::LiteralRange('a', 'z'),
+                    RE::Expr::Or(
+                        RE::Expr::LiteralRange('A', 'Z'),
+                        RE::Expr::LiteralRange('0', '9'))))))));
+
+    for (GR::Terminal const& terminal : terminals) {
+        std::cout << terminal.name() << ": " << terminal.regex().expr() << '\n';
     }
 
     return 0;
