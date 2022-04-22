@@ -8,6 +8,7 @@ public:
     enum class Type {
         Epsilon,
         Literal,
+        LiteralRange,
         // Unary expressions
         Star,
         // Binary expressions
@@ -17,6 +18,7 @@ public:
 
     static Expr* Epsilon();
     static Expr* Literal(char literal);
+    static Expr* LiteralRange(char first, char last);
     static Expr* Star(Expr* sub);
     static Expr* And(Expr* left, Expr* right);
     static Expr* Or(Expr* left, Expr* right);
@@ -31,6 +33,8 @@ public:
     Type type() const { return m_type; }
 
     char literal() const;
+    char range_first() const;
+    char range_last() const;
     Expr* sub() const;
     Expr* left() const;
     Expr* right() const;
@@ -44,6 +48,12 @@ private:
     explicit Expr(char literal)
         : m_type(Type::Literal)
         , m_literal(literal) {}
+
+    /// Private constructor for a literal range
+    explicit Expr(char first, char last)
+        : m_type(Type::LiteralRange)
+        , m_literal_first(first)
+        , m_literal_last(last) {}
 
     /// Private constructor for a unary expression
     Expr(Type type, Expr* sub)
@@ -61,6 +71,12 @@ private:
     union {
         // Valid for Type::Literal
         char m_literal;
+
+        // Valid for Type::LiteralRange
+        struct {
+            char m_literal_first;
+            char m_literal_last;
+        };
 
         // Valid for Type::Star
         Expr* m_sub;

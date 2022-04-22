@@ -14,6 +14,9 @@ std::ostream& operator<<(std::ostream& os, RE::Expr const* expr) {
     case Type::Literal:
         os << '\'' << expr->literal() << '\'';
         break;
+    case Type::LiteralRange:
+        os << '\'' << expr->range_first() << "'-'" << expr->range_last() << '\'';
+        break;
     case Type::Star:
         os << '(' << expr->sub() << " star)";
         break;

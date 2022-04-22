@@ -40,6 +40,11 @@ NFA<char> expr_to_nfa(RE::Expr const* regex) {
         case Type::Literal:
             nfa.add_transition(frag.from, frag.to, frag.expr->literal());
             break;
+        case Type::LiteralRange:
+            for (char c = frag.expr->range_first(); c <= frag.expr->range_last(); c++) {
+                nfa.add_transition(frag.from, frag.to, c);
+            }
+            break;
         case Type::Star:
             nfa.add_transition_epsilon(frag.from, frag.to);
             stack.push_back({frag.from, frag.from, frag.expr->sub()});

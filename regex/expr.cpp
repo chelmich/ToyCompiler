@@ -12,6 +12,11 @@ Expr* Expr::Literal(char literal) {
     return new Expr(literal);
 }
 
+Expr* Expr::LiteralRange(char first, char last) {
+    assert(first < last);
+    return new Expr(first, last);
+}
+
 Expr* Expr::Star(Expr* sub) {
     assert(sub != nullptr);
     return new Expr(Type::Star, sub);
@@ -31,6 +36,7 @@ Expr::~Expr() {
     switch (m_type) {
     case Type::Epsilon:
     case Type::Literal:
+    case Type::LiteralRange:
         // Do nothing
         break;
     case Type::Star:
@@ -49,6 +55,16 @@ Expr::~Expr() {
 char Expr::literal() const {
     assert(m_type == Type::Literal);
     return m_literal;
+}
+
+char Expr::range_first() const {
+    assert(m_type == Type::LiteralRange);
+    return m_literal_first;
+}
+
+char Expr::range_last() const {
+    assert(m_type == Type::LiteralRange);
+    return m_literal_last;
 }
 
 Expr* Expr::sub() const {

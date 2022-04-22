@@ -8,18 +8,11 @@
 #include <vector>
 
 int main(int argc, char* argv[]) {
-    Regex regex = Regex(RE::Expr::And(
-        RE::Expr::Star(
-            RE::Expr::Or(
-                RE::Expr::Literal('a'),
-                RE::Expr::Literal('b'))),
-        RE::Expr::And(
-            RE::Expr::Literal('a'),
-            RE::Expr::Literal('c'))));
+    Regex regex = Regex(RE::Expr::Star(RE::Expr::LiteralRange('a', 'z')));
 
     std::cout << "Regex: " << regex.expr() << "\n\n";
 
-    std::vector<std::string> test_strings = {"ac", "babbac", "abbacd", "dac", ""};
+    std::vector<std::string> test_strings = {"abc", "ABC", "abcDef", ""};
     for (auto const& str : test_strings) {
         std::cout << '"' << str << "\"\n";
         std::cout << "   Matches? " << (regex.match(str) ? "true" : "false") << '\n';
