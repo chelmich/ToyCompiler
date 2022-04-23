@@ -5,6 +5,7 @@
 
 namespace GR {
 
+/// Terminal symbol for a context-free grammar
 class Terminal {
 public:
     explicit Terminal(std::string name, Regex regex)

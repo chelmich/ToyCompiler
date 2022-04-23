@@ -9,6 +9,7 @@ namespace RE {
 class Expr;
 }
 
+/// Regular expression that supports string matching
 class Regex {
 public:
     /// Takes ownership of an expression tree
@@ -32,7 +33,7 @@ public:
     bool match(std::string_view input) const;
 
     /// @brief Find the longest match starting at the begininning of a given string
-    /// @returns The number of characters matched if one exists, @c std::nullopt otherwise
+    /// @returns The number of characters matched if a match exists, @c std::nullopt otherwise
     std::optional<size_t> match_partial(std::string_view input) const;
 
 private:
