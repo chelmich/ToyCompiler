@@ -21,6 +21,7 @@ public:
     /// Get the map of transitions for a given state
     std::unordered_map<T, unsigned> const& transitions(unsigned state) const;
 
+    /// @brief Add a new state to the finite automata
     /// @return Index of the newly added state
     unsigned add_state(bool accepting = false);
 

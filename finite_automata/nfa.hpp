@@ -25,6 +25,7 @@ public:
     /// Get the set of epsilon transition destinations for a given state
     std::unordered_set<unsigned> const& epsilon_transitions(unsigned state) const;
 
+    /// @brief Add a new state to the finite automata
     /// @return Index of the newly added state
     unsigned add_state(bool accepting = false);
 
